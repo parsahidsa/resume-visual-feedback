@@ -1,7 +1,7 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from pdf2image import convert_from_bytes
-import openai
+from openai import OpenAI
 import io
 import base64
 import os
@@ -10,12 +10,8 @@ from dotenv import load_dotenv
 load_dotenv()
 app = FastAPI()
 
-# اینجا روت رو اضافه کن
-@app.get("/")
-async def root():
-    return {"message": "API is running. Use POST /analyze-resume-visual to upload PDF."}
-
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# ایجاد کلاینت OpenAI
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @app.post("/analyze-resume-visual")
 async def analyze_resume_visual(file: UploadFile = File(...)):
@@ -40,8 +36,8 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
                 "image_url": {"url": f"data:image/png;base64,{img_base64}"}
             })
 
-        # ارسال به GPT-4o با همه تصاویر
-        response = openai.ChatCompletion.create(
+        # ارسال به GPT-4o با همه تصاویر با متد جدید
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a resume design advisor. Give visual feedback on the uploaded resume images."},
