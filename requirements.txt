@@ -2,7 +2,7 @@ fastapi
 uvicorn
 PyPDF2
 pdf2image
-openai
+openai>=1.0.0
 pillow
 python-dotenv
 python-multipart
