@@ -4,3 +4,4 @@ PyPDF2
 pdf2image
 openai
 pillow
+python-dotenv
