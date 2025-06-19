@@ -6,10 +6,17 @@ import io
 import base64
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 app = FastAPI()
 
+# اینجا روت رو اضافه کن
+@app.get("/")
+async def root():
+    return {"message": "API is running. Use POST /analyze-resume-visual to upload PDF."}
+
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
 @app.post("/analyze-resume-visual")
 async def analyze_resume_visual(file: UploadFile = File(...)):
     try:
