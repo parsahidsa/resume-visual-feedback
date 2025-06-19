@@ -5,3 +5,5 @@ pdf2image
 openai
 pillow
 python-dotenv
+python-multipart
+
