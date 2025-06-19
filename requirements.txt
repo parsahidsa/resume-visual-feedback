@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+PyPDF2
+pdf2image
+openai
+pillow
