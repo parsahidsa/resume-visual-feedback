@@ -50,7 +50,7 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
                     {"type": "text", "text": "5. Suggestions for Improvement: Provide overall recommendations for improving the resume in terms of content and design."},
                     {"type": "text", "text": "6. Profile Photo: If a photo is included, is it professionally presented?"},
                     {"type": "text", "text": "Provide detailed insights, including any issues with the visual design, such as excessive color use, poor contrast, or poorly formatted images."},
-                    {"role": "user", "content": f"Job Description: {job_description}"},
+                    {"type": "text", "text": f"Job Description: {job_description}"},
                     *image_messages
                 ]}
             ],
