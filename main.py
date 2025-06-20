@@ -37,6 +37,7 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
             })
 
         # ارسال به GPT-4o با همه تصاویر با متد جدید
+        print(f"Sending request to OpenAI with {len(image_messages)} images.")
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
@@ -50,15 +51,17 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
                     {"type": "text", "text": "5. Suggestions for Improvement: Provide overall recommendations for improving the resume in terms of content and design."},
                     {"type": "text", "text": "6. Profile Photo: If a photo is included, is it professionally presented?"},
                     {"type": "text", "text": "Provide detailed insights, including any issues with the visual design, such as excessive color use, poor contrast, or poorly formatted images."},
-                    {"type": "text", "text": f"Job Description: {job_description}"},
+                    {"role": "user", "content": f"Job Description: {job_description}"},
                     *image_messages
                 ]}
             ],
             max_tokens=800
         )
 
+        print(f"Response received: {response.choices[0].message.content}")
         feedback = response.choices[0].message.content
         return {"success": True, "feedback": feedback}
 
     except Exception as e:
+        print(f"Error: {e}")
         return JSONResponse(content={"error": str(e)}, status_code=500)
