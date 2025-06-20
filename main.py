@@ -41,7 +41,7 @@ async def analyze_resume_visual(file: UploadFile = File(...), job_description: s
 
         # ارسال به GPT-4v با همه تصاویر با متد جدید
         response = client.chat.completions.create(
-            model="o4-mini-high",
+            model="GPT-4.1",
             messages=[
                 {"role": "system", "content": "You are a professional resume expert assistant. Please respond in the following numbered format exactly"},
                 {"role": "user", "content": [
