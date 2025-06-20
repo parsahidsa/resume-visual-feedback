@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.responses import JSONResponse
 from pdf2image import convert_from_bytes
 from openai import OpenAI
@@ -14,8 +14,11 @@ app = FastAPI()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @app.post("/analyze-resume-visual")
-async def analyze_resume_visual(file: UploadFile = File(...)):
+async def analyze_resume_visual(file: UploadFile = File(...), job_description: str = Form(...)):
     try:
+        # چاپ job_description برای اطمینان از دریافت آن
+        print(f"Job Description: {job_description}")
+        
         pdf_bytes = await file.read()
 
         # تبدیل به تصویر - همه صفحات (یا فقط چند صفحه اول)
@@ -37,7 +40,6 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
             })
 
         # ارسال به GPT-4o با همه تصاویر با متد جدید
-        print(f"Sending request to OpenAI with {len(image_messages)} images.")
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
@@ -58,7 +60,6 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
             max_tokens=800
         )
 
-        print(f"Response received: {response.choices[0].message.content}")
         feedback = response.choices[0].message.content
         return {"success": True, "feedback": feedback}
 
