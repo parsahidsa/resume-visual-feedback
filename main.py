@@ -40,17 +40,19 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "system", "content": "You are a professional resume design expert. Please analyze the following resume images."},
-                {"role": "user", "content": [
-                    {"type": "text", "text": "You are a professional resume design expert. Please analyze the following resume images in detail. Comment on the following aspects:"},
-                    {"type": "text", "text": "1. Match Percentage: Please provide a percentage from 0 to 100 for how well this resume aligns with the job description."},
-                    {"type": "text", "text": "2. Alternative Job Matches: Suggest other job roles or industries that this resume could be a good fit for."},
-                    {"type": "text", "text": "3. Resume Section Review: Analyze the sections of the resume and suggest any improvements or missing sections."},
-                    {"type": "text", "text": "4. Writing Errors or Repetitions: Check for any spelling mistakes, grammatical errors, or repetitive phrases."},
-                    *image_messages
-                ]}
+                {"role": "system", "content": "You are a professional resume expert. Please analyze the following resume in detail, providing a comprehensive review."},
+                {"role": "user", "content": f"Please respond in the following numbered format exactly:\n"
+                                           f"1. Match Percentage: Provide a match percentage from 0 to 100 for how well this resume aligns with the job description.\n"
+                                           f"2. Alternative Job Matches: Suggest other roles or industries this resume could fit.\n"
+                                           f"3. Design & Layout: Is the resume visually appealing? Comment on alignment, font, spacing, and clarity.\n"
+                                           f"4. Grammar & Phrasing: Highlight any errors, awkward phrases, or redundancies.\n"
+                                           f"5. Suggestions for Improvement: Provide overall recommendations for improving the resume in terms of content and design.\n"
+                                           f"6. Profile Photo: If a photo is included, is it professionally presented?\n"
+                                           f"Provide detailed insights, including any issues with the visual design, such as excessive color use, poor contrast, or poorly formatted images."},
+                {"role": "user", "content": f"Job Description: {job_description}"},
+                *image_messages
             ],
-            max_tokens=800
+            max_tokens=8000
         )
 
         feedback = response.choices[0].message.content
