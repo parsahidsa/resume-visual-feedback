@@ -52,7 +52,8 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
                                            "Provide detailed insights, including any issues with the visual design, such as excessive color use, poor contrast, or poorly formatted images."},
                 {"role": "user", "content": f"Job Description: {job_description}"},
                 *image_messages
-            ]},
+                 ],
+            ],    
             max_tokens=8000
         )
 
