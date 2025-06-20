@@ -41,17 +41,18 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a professional resume expert. Please analyze the following resume in detail, providing a comprehensive review."},
-                {"role": "user", "content": f"Please respond in the following numbered format exactly:\n"
-                                           f"1. Match Percentage: Provide a match percentage from 0 to 100 for how well this resume aligns with the job description.\n"
-                                           f"2. Alternative Job Matches: Suggest other roles or industries this resume could fit.\n"
-                                           f"3. Design & Layout: Is the resume visually appealing? Comment on alignment, font, spacing, and clarity.\n"
-                                           f"4. Grammar & Phrasing: Highlight any errors, awkward phrases, or redundancies.\n"
-                                           f"5. Suggestions for Improvement: Provide overall recommendations for improving the resume in terms of content and design.\n"
-                                           f"6. Profile Photo: If a photo is included, is it professionally presented?\n"
-                                           f"Provide detailed insights, including any issues with the visual design, such as excessive color use, poor contrast, or poorly formatted images."},
+                {"role": "user", "content": [
+                    {"type": "text", "text": "Please respond in the following numbered format exactly:\n"
+                                           "1. Match Percentage: Provide a match percentage from 0 to 100 for how well this resume aligns with the job description.\n"
+                                           "2. Alternative Job Matches: Suggest other roles or industries this resume could fit.\n"
+                                           "3. Design & Layout: Is the resume visually appealing? Comment on alignment, font, spacing, and clarity.\n"
+                                           "4. Grammar & Phrasing: Highlight any errors, awkward phrases, or redundancies.\n"
+                                           "5. Suggestions for Improvement: Provide overall recommendations for improving the resume in terms of content and design.\n"
+                                           "6. Profile Photo: If a photo is included, is it professionally presented?\n"
+                                           "Provide detailed insights, including any issues with the visual design, such as excessive color use, poor contrast, or poorly formatted images."},
                 {"role": "user", "content": f"Job Description: {job_description}"},
                 *image_messages
-            ],
+            ]},
             max_tokens=8000
         )
 
