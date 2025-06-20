@@ -43,15 +43,15 @@ async def analyze_resume_visual(file: UploadFile = File(...)):
                 {"role": "system", "content": "You are a professional resume expert. Please analyze the following resume in detail, providing a comprehensive review."},
                 {"role": "user", "content": [
                     {"type": "text", "text": "Please respond in the following numbered format exactly."},
-                    {"type": "text", "text": "1. Match Percentage: Provide a match percentage from 0 to 100 for how well this resume aligns with the job description.\n"},
-                    {"type": "text", "text": "2. Alternative Job Matches: Suggest other roles or industries this resume could fit.\n"},
-                    {"type": "text", "text": "3. Design & Layout: Is the resume visually appealing? Comment on alignment, font, spacing, and clarity.\n"},
-                    {"type": "text", "text": "4. Grammar & Phrasing: Highlight any errors, awkward phrases, or redundancies.\n"},
-                    {"type": "text", "text": "5. Suggestions for Improvement: Provide overall recommendations for improving the resume in terms of content and design.\n"},
-                    {"type": "text", "text": "6. Profile Photo: If a photo is included, is it professionally presented?\n"},
+                    {"type": "text", "text": "1. Match Percentage: Provide a match percentage from 0 to 100 for how well this resume aligns with the job description."},
+                    {"type": "text", "text": "2. Alternative Job Matches: Suggest other roles or industries this resume could fit."},
+                    {"type": "text", "text": "3. Design & Layout: Is the resume visually appealing? Comment on alignment, font, spacing, and clarity."},
+                    {"type": "text", "text": "4. Grammar & Phrasing: Highlight any errors, awkward phrases, or redundancies."},
+                    {"type": "text", "text": "5. Suggestions for Improvement: Provide overall recommendations for improving the resume in terms of content and design."},
+                    {"type": "text", "text": "6. Profile Photo: If a photo is included, is it professionally presented?"},
                     {"type": "text", "text": "Provide detailed insights, including any issues with the visual design, such as excessive color use, poor contrast, or poorly formatted images."},
-                {"role": "user", "content": f"Job Description: {job_description}"},
-                *image_messages
+                    {"role": "user", "content": f"Job Description: {job_description}"},
+                    *image_messages
                 ]}
             ],
             max_tokens=800
