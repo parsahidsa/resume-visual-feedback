@@ -43,7 +43,7 @@ async def analyze_resume_visual(file: UploadFile = File(...), job_description: s
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "system", "content": "You are a professional resume expert. Please analyze the visual design of the following resume images, including aspects such as layout, font usage, and image placement.."},
+                {"role": "system", "content": "You are a professional resume expert. Please analyze the resume"},
                 {"role": "user", "content": [
                     {"type": "text", "text": "Please respond in the following numbered format exactly."},
                     {"type": "text", "text": "1. Match Percentage: Provide a match percentage from 0 to 100 for how well this resume aligns with the job description."},
