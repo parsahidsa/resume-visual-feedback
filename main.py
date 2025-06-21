@@ -57,7 +57,7 @@ async def analyze_resume_visual(file: UploadFile = File(...), job_description: s
                     *image_messages
                 ]}
             ],
-            max_tokens=800
+            max_tokens=6000
         )
 
         feedback = response.choices[0].message.content
